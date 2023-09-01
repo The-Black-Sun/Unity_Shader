@@ -30,31 +30,35 @@ Shader "Unity Shaders Book/Chapter 6/Half Lambert" {
 			
 			v2f vert(a2v v) {
 				v2f o;
-				// Transform the vertex from object space to projection space
+
+				// 将顶点坐标从模型空间转换到投影空间
 				o.pos = UnityObjectToClipPos(v.vertex);
-				
-				// Transform the normal from object space to world space
+
+				// 将顶点法线，从模型空间转换到世界空间
 				o.worldNormal = mul(v.normal, (float3x3)unity_WorldToObject);
-				
+
 				return o;
 			}
 			
 			fixed4 frag(v2f i) : SV_Target {
-				// Get ambient term
+				//获取环境光数据
 				fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
-				
-				// Get the normal in world space
+
+				//获取世界空间的顶点法线，并归一化
 				fixed3 worldNormal = normalize(i.worldNormal);
-				// Get the light direction in world space
+
+				//获取世界空间的光源归一化矢量
 				fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
-				
-				// Compute diffuse term
+
+				//进行漫反射模型计算
 				fixed halfLambert = dot(worldNormal, worldLightDir) * 0.5 + 0.5;
 				fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * halfLambert;
-				
+
+				//合并环境光与漫反射光线
 				fixed3 color = ambient + diffuse;
-				
+
 				return fixed4(color, 1.0);
+				
 			}
 			
 			ENDCG

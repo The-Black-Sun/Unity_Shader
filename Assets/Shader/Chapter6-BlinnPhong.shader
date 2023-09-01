@@ -1,8 +1,4 @@
-﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Unity Shaders Book/Chapter 6/Blinn-Phong" {
+﻿Shader "Unity Shaders Book/Chapter 6/Blinn-Phong" {
 	Properties {
 		_Diffuse ("Diffuse", Color) = (1, 1, 1, 1)
 		_Specular ("Specular", Color) = (1, 1, 1, 1)
@@ -36,33 +32,35 @@ Shader "Unity Shaders Book/Chapter 6/Blinn-Phong" {
 			
 			v2f vert(a2v v) {
 				v2f o;
-				// Transform the vertex from object space to projection space
+				//将顶点坐标从模型空间转换到投影空间
 				o.pos = UnityObjectToClipPos(v.vertex);
-				
-				// Transform the normal from object space to world space
+
+				//将顶点法线，从模型空间转换到世界空间
 				o.worldNormal = mul(v.normal, (float3x3)unity_WorldToObject);
-				
-				// Transform the vertex from object spacet to world space
+
+				//将顶点坐标从模型空间转换到世界空间
 				o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 				
 				return o;
 			}
 			
 			fixed4 frag(v2f i) : SV_Target {
-				// Get ambient term
+				//环境光
 				fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
 				
+				//世界法线
 				fixed3 worldNormal = normalize(i.worldNormal);
+				//世界，入射光线（反向的）
 				fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
 				
-				// Compute diffuse term
+				//漫反射效果
 				fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * max(0, dot(worldNormal, worldLightDir));
 				
-				// Get the view direction in world space
+				//世界空间，观察视角
 				fixed3 viewDir = normalize(_WorldSpaceCameraPos.xyz - i.worldPos.xyz);
-				// Get the half direction in world space
+				//反射夹角中线，归一化
 				fixed3 halfDir = normalize(worldLightDir + viewDir);
-				// Compute specular term
+				//高光反射效果
 				fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0, dot(worldNormal, halfDir)), _Gloss);
 				
 				return fixed4(ambient + diffuse + specular, 1.0);

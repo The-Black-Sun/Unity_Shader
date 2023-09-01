@@ -19,8 +19,11 @@ Shader "Unity Shaders Book/Chapter 6/Specular Vertex-Level" {
 			
 			#include "Lighting.cginc"
 			
+			//材质漫反射系数
 			fixed4 _Diffuse;
+			//材质高光反射系数
 			fixed4 _Specular;
+			//物体表面光泽度
 			float _Gloss;
 			
 			struct a2v {
@@ -35,28 +38,29 @@ Shader "Unity Shaders Book/Chapter 6/Specular Vertex-Level" {
 			
 			v2f vert(a2v v) {
 				v2f o;
-				// Transform the vertex from object space to projection space
+				//顶点：模型空间=>投影空间
 				o.pos = UnityObjectToClipPos(v.vertex);
 				
-				// Get ambient term
+				//环境光
 				fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
 				
-				// Transform the normal from object space to world space
+				//法线：模型空间=>世界空间
 				fixed3 worldNormal = normalize(mul(v.normal, (float3x3)unity_WorldToObject));
-				// Get the light direction in world space
+				//入射方向，归一化
 				fixed3 worldLightDir = normalize(_WorldSpaceLightPos0.xyz);
 				
-				// Compute diffuse term
+				//漫反射
 				fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal, worldLightDir));
 				
-				// Get the reflect direction in world space
+				//反射光线，归一化
 				fixed3 reflectDir = normalize(reflect(-worldLightDir, worldNormal));
-				// Get the view direction in world space
+				//视角方向，归一化
 				fixed3 viewDir = normalize(_WorldSpaceCameraPos.xyz - mul(unity_ObjectToWorld, v.vertex).xyz);
 				
-				// Compute specular term
+				//获取高光反射效果
 				fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(saturate(dot(reflectDir, viewDir)), _Gloss);
 				
+				//最终效果=环境光+漫反射+高光反射
 				o.color = ambient + diffuse + specular;
 							 	
 				return o;
