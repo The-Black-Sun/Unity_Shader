@@ -49,6 +49,7 @@ Shader "Unity Shaders Book/Chapter 7/Normal Map In Tangent Space" {
 			struct v2f {
 				float4 pos : SV_POSITION;
 				float4 uv : TEXCOORD0;
+				//用来存储切线空间的光源与视角
 				float3 lightDir: TEXCOORD1;
 				float3 viewDir : TEXCOORD2;
 			};
@@ -94,7 +95,7 @@ Shader "Unity Shaders Book/Chapter 7/Normal Map In Tangent Space" {
 				tangentNormal = UnpackNormal(packedNormal);
 				tangentNormal.xy *= _BumpScale;
 				//切线空间的法线z分量，由xy分量获得
-				//saturate函数是一种色彩调整函数,可以有效地改变图像的色彩,从而增强或减弱图像的明暗程度,使图像的细节更加细腻、更加具有层次感。
+				//saturate函数限制数值范围在[0,1]中
 				tangentNormal.z = sqrt(1.0 - saturate(dot(tangentNormal.xy, tangentNormal.xy)));
 				
 				//使用纹理对漫反射颜色进行采样
