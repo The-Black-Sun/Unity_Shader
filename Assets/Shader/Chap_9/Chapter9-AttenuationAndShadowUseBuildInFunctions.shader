@@ -39,6 +39,7 @@ Shader "Unity Shaders Book/Chapter 9/Attenuation And Shadow Use Build-in Functio
 				float4 pos : SV_POSITION;
 				float3 worldNormal : TEXCOORD0;
 				float3 worldPos : TEXCOORD1;
+				//内置宏，接收阴影声明阴影采样纹理
 				SHADOW_COORDS(2)
 			};
 			
@@ -50,7 +51,7 @@ Shader "Unity Shaders Book/Chapter 9/Attenuation And Shadow Use Build-in Functio
 			 	
 			 	o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 			 	
-			 	// Pass shadow coordinates to pixel shader
+			 	//计算阴影纹理坐标
 			 	TRANSFER_SHADOW(o);
 			 	
 			 	return o;
@@ -69,6 +70,10 @@ Shader "Unity Shaders Book/Chapter 9/Attenuation And Shadow Use Build-in Functio
 			 	fixed3 specular = _LightColor0.rgb * _Specular.rgb * pow(max(0, dot(worldNormal, halfDir)), _Gloss);
 
 				// UNITY_LIGHT_ATTENUATION not only compute attenuation, but also shadow infos
+				//使用内置宏就散光照以及阴影
+				//atten,内置宏会帮助声明,存储光照衰减与阴影值的相乘结果
+				//i，是v2f结构体，用来计算SHADOW_ATTENUATION，接受阴影
+				//i.worldPos,世界空间坐标，用于计算光源空间下坐标
 				UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos);
 				
 				return fixed4(ambient + (diffuse + specular) * atten, 1.0);

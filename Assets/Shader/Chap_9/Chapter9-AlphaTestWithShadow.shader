@@ -1,7 +1,4 @@
-﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Unity Shaders Book/Chapter 9/Alpha Test With Shadow" {
+﻿Shader "Unity Shaders Book/Chapter 9/Alpha Test With Shadow" {
 	Properties {
 		_Color ("Color Tint", Color) = (1, 1, 1, 1)
 		_MainTex ("Main Tex", 2D) = "white" {}
@@ -41,6 +38,8 @@ Shader "Unity Shaders Book/Chapter 9/Alpha Test With Shadow" {
 				float3 worldNormal : TEXCOORD0;
 				float3 worldPos : TEXCOORD1;
 				float2 uv : TEXCOORD2;
+				//阴影纹理坐标声明，由于已经占用了3个插值寄存器（TEXCOORD0、TEXCOORD1、TEXCOORD2）
+				//这里阴影纹理坐标占用第四个寄存器TEXCOORD3，所以参数传递3
 				SHADOW_COORDS(3)
 			};
 			
@@ -55,6 +54,7 @@ Shader "Unity Shaders Book/Chapter 9/Alpha Test With Shadow" {
 			 	o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
 			 	
 			 	// Pass shadow coordinates to pixel shader
+				//计算阴影纹理坐标
 			 	TRANSFER_SHADOW(o);
 			 	
 			 	return o;
@@ -74,7 +74,7 @@ Shader "Unity Shaders Book/Chapter 9/Alpha Test With Shadow" {
 				
 				fixed3 diffuse = _LightColor0.rgb * albedo * max(0, dot(worldNormal, worldLightDir));
 							 	
-			 	// UNITY_LIGHT_ATTENUATION not only compute attenuation, but also shadow infos
+			 	//计算阴影以及衰减因子
 				UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos);
 			 	
 				return fixed4(ambient + diffuse * atten, 1.0);
@@ -83,5 +83,6 @@ Shader "Unity Shaders Book/Chapter 9/Alpha Test With Shadow" {
 			ENDCG
 		}
 	} 
+			//更改回调shader的VertexLit为Transparent/Cutout/VertexLit
 	FallBack "Transparent/Cutout/VertexLit"
 }

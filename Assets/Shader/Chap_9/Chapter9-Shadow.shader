@@ -1,8 +1,4 @@
-﻿// Upgrade NOTE: replaced '_LightMatrix0' with 'unity_WorldToLight'
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Unity Shaders Book/Chapter 9/Shadow" {
+﻿Shader "Unity Shaders Book/Chapter 9/Shadow" {
 	Properties {
 		_Diffuse ("Diffuse", Color) = (1, 1, 1, 1)
 		_Specular ("Specular", Color) = (1, 1, 1, 1)
@@ -12,19 +8,19 @@ Shader "Unity Shaders Book/Chapter 9/Shadow" {
 		Tags { "RenderType"="Opaque" }
 		
 		Pass {
-			// Pass for ambient light & first pixel light (directional light)
+			//基础前向
 			Tags { "LightMode"="ForwardBase" }
 		
 			CGPROGRAM
 			
-			// Apparently need to add this declaration 
+			//编译指令，获取正确的内置变量
 			#pragma multi_compile_fwdbase	
 			
 			#pragma vertex vert
 			#pragma fragment frag
 			
-			// Need these files to get built-in macros
 			#include "Lighting.cginc"
+			//添加内置文件，内部声明用来计算阴影的宏
 			#include "AutoLight.cginc"
 			
 			fixed4 _Diffuse;
@@ -40,6 +36,10 @@ Shader "Unity Shaders Book/Chapter 9/Shadow" {
 				float4 pos : SV_POSITION;
 				float3 worldNormal : TEXCOORD0;
 				float3 worldPos : TEXCOORD1;
+				//内置宏相关代码在AutoLight.cginc中查找
+				//内置宏，声明对阴影纹理采样的坐标（宏的参数是下个可用插值寄存器的索引值）
+				//实际上是声明定义了一个_ShadowCoord的阴影纹理坐标
+				//兼容了关闭阴影，如果关闭，没有作用
 				SHADOW_COORDS(2)
 			};
 			
@@ -52,6 +52,11 @@ Shader "Unity Shaders Book/Chapter 9/Shadow" {
 			 	o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 			 	
 			 	// Pass shadow coordinates to pixel shader
+				//顶点着色器添加另一个内置宏，用来计算上一步声明的阴影纹理坐标
+				//实际实现根据不同平台有不同的计算差异，会将顶点坐标从模型空间转换到光源空间后存储在_ShadowCoord中
+				//兼容了关闭阴影，如果关闭，没有作用
+				//注意内置代码是使用v.vertex或a.pos来进行阴影计算的。
+				//所以在上文结构体定义中a2f的顶点变量名称必须是vertex,v2f中的顶点位置变量名称必须是pos
 			 	TRANSFER_SHADOW(o);
 			 	
 			 	return o;
@@ -71,6 +76,8 @@ Shader "Unity Shaders Book/Chapter 9/Shadow" {
 
 				fixed atten = 1.0;
 				
+				//在片元着色器中计算阴影值
+				//负责使用_ShadowCoord对相关纹理进行采样，兼容了关闭阴影，如果关闭，或直接取值1
 				fixed shadow = SHADOW_ATTENUATION(i);
 				
 				return fixed4(ambient + (diffuse + specular) * atten * shadow, 1.0);
