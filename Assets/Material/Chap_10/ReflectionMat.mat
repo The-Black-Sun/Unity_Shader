@@ -76,7 +76,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ReflectAmount: 0.9
+    - _ReflectAmount: 1
     - _RimPower: 4
     - _SrcBlend: 1
     - _UVSec: 0

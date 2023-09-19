@@ -57,9 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Chapter10\ProceduralTextureGeneration.cs" />
-    <Compile Include="Assets\Script\Helpers\Translating.cs" />
-    <Compile Include="Assets\Script\Helpers\Rotating.cs" />
     <Compile Include="Assets\Script\Helpers\SetPropertyAttribute.cs" />
+    <Compile Include="Assets\Script\Helpers\Rotating.cs" />
+    <Compile Include="Assets\Script\Helpers\Translating.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shader\Chap_6\Chapter6-DiffusePixelLevel.shader" />
@@ -67,6 +67,7 @@
     <None Include="Assets\Shader\Chap_7\Chapter7-NormalMapWorldSpace.shader" />
     <None Include="Assets\Shader\Chap_7\Chapter7-SingleTexture.shader" />
     <None Include="Assets\Shader\Chap_9\Chapter9-AlphaTestWithShadow.shader" />
+    <None Include="Assets\Shader\Common\BumpedSpecular.shader" />
     <None Include="Assets\Shader\Chap_9\Chapter9-AlphaBlendWithShadow.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-AlphaBlend.shader" />
     <None Include="Assets\Shader\Chap_10\Chapter10-Fresnel.shader" />
@@ -83,6 +84,7 @@
     <None Include="Assets\Shader\Chap_8\Chapter8-BlendOperations 1.shader" />
     <None Include="Assets\Shader\Chap_10\Chapter10-Reflection.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-AlphaTest.shader" />
+    <None Include="Assets\Shader\Common\BumpedDiffuse.shader" />
     <None Include="Assets\Shader\Chap_6\Chapter6-SpecularVertexLevel.shader" />
     <None Include="Assets\Test1\Shader\test1.shader" />
     <None Include="Assets\Shader\Chap_10\Chapter10-GlassRefraction.shader" />

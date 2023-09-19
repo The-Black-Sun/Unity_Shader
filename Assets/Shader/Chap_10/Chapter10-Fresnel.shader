@@ -4,6 +4,7 @@
 Shader "Unity Shaders Book/Chapter 10/Fresnel" {
 	Properties {
 		_Color ("Color Tint", Color) = (1, 1, 1, 1)
+		//声明菲涅尔反射的属性（程度）以及反射纹理
 		_FresnelScale ("Fresnel Scale", Range(0, 1)) = 0.5
 		_Cubemap ("Reflection Cubemap", Cube) = "_Skybox" {}
 	}
@@ -41,6 +42,7 @@ Shader "Unity Shaders Book/Chapter 10/Fresnel" {
  	 			SHADOW_COORDS(4)
 			};
 			
+			//顶点着色器计算世界空间下的法线方向、视角方向与反射方向
 			v2f vert(a2v v) {
 				v2f o;
 				o.pos = UnityObjectToClipPos(v.vertex);
@@ -67,12 +69,15 @@ Shader "Unity Shaders Book/Chapter 10/Fresnel" {
 				
 				UNITY_LIGHT_ATTENUATION(atten, i, i.worldPos);
 				
+				//反射的纹理采样
 				fixed3 reflection = texCUBE(_Cubemap, i.worldRefl).rgb;
 				
+				//菲涅尔变量
 				fixed fresnel = _FresnelScale + (1 - _FresnelScale) * pow(1 - dot(worldViewDir, worldNormal), 5);
 				
 				fixed3 diffuse = _LightColor0.rgb * _Color.rgb * max(0, dot(worldNormal, worldLightDir));
 				
+				//利用菲涅尔反射计算反射效果,菲涅尔变量控制漫反射光照与反射光照混合
 				fixed3 color = ambient + lerp(diffuse, reflection, saturate(fresnel)) * atten;
 				
 				return fixed4(color, 1.0);

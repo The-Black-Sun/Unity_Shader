@@ -30,12 +30,14 @@ Shader "Unity Shaders Book/Chapter 10/Mirror" {
 				o.pos = UnityObjectToClipPos(v.vertex);
 				
 				o.uv = v.texcoord;
-				// Mirror needs to filp x
+				//顶点着色器计算纹理坐标
+				//翻转了x分量的纹理坐标（镜子中是左右相反的）
 				o.uv.x = 1 - o.uv.x;
 				
 				return o;
 			}
 			
+			//片元着色器中对纹理采样输出
 			fixed4 frag(v2f i) : SV_Target {
 				return tex2D(_MainTex, i.uv);
 			}
