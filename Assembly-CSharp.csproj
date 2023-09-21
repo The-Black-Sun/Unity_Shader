@@ -69,6 +69,7 @@
     <None Include="Assets\Shader\Chap_9\Chapter9-AlphaTestWithShadow.shader" />
     <None Include="Assets\Shader\Common\BumpedSpecular.shader" />
     <None Include="Assets\Shader\Chap_9\Chapter9-AlphaBlendWithShadow.shader" />
+    <None Include="Assets\Shader\Chap_11\Chapter11-Water.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-AlphaBlend.shader" />
     <None Include="Assets\Shader\Chap_10\Chapter10-Fresnel.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-BlendOperations.shader" />
@@ -80,8 +81,11 @@
     <None Include="Assets\Shader\Chap_9\Chapter9-Shadow.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-AlphaTestBothSided.shader" />
     <None Include="Assets\Shader\Chap_7\Chapter7-TextureProperties.shader" />
+    <None Include="Assets\Shader\Chap_11\Chapter11-Billboard.shader" />
     <None Include="Assets\Shader\Chap_6\Chapter6-BlinnPhong.shader" />
+    <None Include="Assets\Shader\Chap_11\Chapter11-ImageSequenceAnimation.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-BlendOperations 1.shader" />
+    <None Include="Assets\Shader\Chap_11\Chapter11-VertexAnimationWIthShadow.shader" />
     <None Include="Assets\Shader\Chap_10\Chapter10-Reflection.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-AlphaTest.shader" />
     <None Include="Assets\Shader\Common\BumpedDiffuse.shader" />
@@ -93,6 +97,7 @@
     <None Include="Assets\Shader\Chap_6\Chapter6-DiffuseVertexLevel.shader" />
     <None Include="Assets\Shader\Chap_7\Chapter7-RampTexture.shader" />
     <None Include="Assets\Shader\Chap_10\Chapter10-Refraction.shader" />
+    <None Include="Assets\Shader\Chap_11\Chapter11-ScrollingBackground.shader" />
     <None Include="Assets\Shader\Chap_10\Chapter10-Mirror.shader" />
   </ItemGroup>
   <ItemGroup>

@@ -2,12 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
+//支持脚本在编辑器模式下运行
 [ExecuteInEditMode]
 public class ProceduralTextureGeneration : MonoBehaviour {
 
+	//声明材质，这个材质会只用这个脚本生成的材质纹理
 	public Material material = null;
 
+	//声明程序纹理使用的各种参数
 	#region Material properties
+	//纹理大小
 	[SerializeField, SetProperty("textureWidth")]
 	private int m_textureWidth = 512;
 	public int textureWidth {
@@ -16,10 +20,12 @@ public class ProceduralTextureGeneration : MonoBehaviour {
 		}
 		set {
 			m_textureWidth = value;
+			//开源插件，属性修改，更新纹理显示
 			_UpdateMaterial();
 		}
 	}
 
+	//纹理的背景颜色
 	[SerializeField, SetProperty("backgroundColor")]
 	private Color m_backgroundColor = Color.white;
 	public Color backgroundColor {
@@ -32,6 +38,7 @@ public class ProceduralTextureGeneration : MonoBehaviour {
 		}
 	}
 
+	//圆点的颜色
 	[SerializeField, SetProperty("circleColor")]
 	private Color m_circleColor = Color.yellow;
 	public Color circleColor {
@@ -44,6 +51,7 @@ public class ProceduralTextureGeneration : MonoBehaviour {
 		}
 	}
 
+	//模糊因子
 	[SerializeField, SetProperty("blurFactor")]
 	private float m_blurFactor = 2.0f;
 	public float blurFactor {
@@ -57,9 +65,10 @@ public class ProceduralTextureGeneration : MonoBehaviour {
 	}
 	#endregion
 
+	//保存生成的程序纹理所声明的一个Texture2D类型的纹理变量
 	private Texture2D m_generatedTexture = null;
 
-	// Use this for initialization
+	// 获取当前物体的渲染器以及其中的材质
 	void Start () {
 		if (material == null) {
 			Renderer renderer = gameObject.GetComponent<Renderer>();
@@ -71,12 +80,16 @@ public class ProceduralTextureGeneration : MonoBehaviour {
 			material = renderer.sharedMaterial;
 		}
 
+		//通过该函数来进行材质纹理生成
 		_UpdateMaterial();
 	}
 
+	//生成与更新材质纹理
 	private void _UpdateMaterial() {
 		if (material != null) {
+			//材质不为空，调用_GenerateProceduralTexture生成程序纹理
 			m_generatedTexture = _GenerateProceduralTexture();
+			//将生成的纹理赋给材质_MainTex
 			material.SetTexture("_MainTex", m_generatedTexture);
 		}
 	}
@@ -91,41 +104,43 @@ public class ProceduralTextureGeneration : MonoBehaviour {
 	}
 
 	private Texture2D _GenerateProceduralTexture() {
+		//生成大小为textureWidth的纹理
 		Texture2D proceduralTexture = new Texture2D(textureWidth, textureWidth);
 
-		// The interval between circles
+		//定义圆之间的间距
 		float circleInterval = textureWidth / 4.0f;
-		// The radius of circles
+		//定义圆的半径
 		float radius = textureWidth / 10.0f;
-		// The blur factor
+		//定义模糊系数
 		float edgeBlur = 1.0f / blurFactor;
 
 		for (int w = 0; w < textureWidth; w++) {
 			for (int h = 0; h < textureWidth; h++) {
-				// Initalize the pixel with background color
+				//初始化像素背景颜色
 				Color pixel = backgroundColor;
 
-				// Draw nine circles one by one
+				//绘制一个个圆
 				for (int i = 0; i < 3; i++) {
 					for (int j = 0; j < 3; j++) {
-						// Compute the center of current circle
+						//设置圆心的位置
 						Vector2 circleCenter = new Vector2(circleInterval * (i + 1), circleInterval * (j + 1));
 
-						// Compute the distance between the pixel and the center
+						//计算当前像素与圆心之间的距离
 						float dist = Vector2.Distance(new Vector2(w, h), circleCenter) - radius;
 
-						// Blur the edge of the circle
+						//模糊圆的边界
 						Color color = _MixColor(circleColor, new Color(pixel.r, pixel.g, pixel.b, 0.0f), Mathf.SmoothStep(0f, 1.0f, dist * edgeBlur));
 
-						// Mix the current color with the previous color
+						//与之前得到的颜色进行混合
 						pixel = _MixColor(pixel, color, color.a);
 					}
 				}
-
+				//设置像素的颜色
 				proceduralTexture.SetPixel(w, h, pixel);
 			}
 		}
 
+		//强制将像素写进纹理中
 		proceduralTexture.Apply();
 
 		return proceduralTexture;
