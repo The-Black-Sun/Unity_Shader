@@ -356,7 +356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 431816, guid: 6869ac248a2e1f34383d67390a76db87, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.02
+      value: 3.98
       objectReference: {fileID: 0}
     - target: {fileID: 431816, guid: 6869ac248a2e1f34383d67390a76db87, type: 3}
       propertyPath: m_LocalRotation.w
@@ -717,6 +717,7 @@ GameObject:
   - component: {fileID: 1353792708}
   - component: {fileID: 1353792707}
   - component: {fileID: 1353792706}
+  - component: {fileID: 1353792709}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -790,6 +791,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1353792709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353792705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c28c49317c2dc43bead7a1a11883ae55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  briSatConShader: {fileID: 4800000, guid: a8bb1cedc6dbe4cce89478c01bd6d378, type: 3}
+  brightness: 0.96
+  saturation: 0.96
+  contrast: 0.98
 --- !u!1 &1708393699
 GameObject:
   m_ObjectHideFlags: 0

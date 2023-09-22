@@ -60,6 +60,12 @@
     <Compile Include="Assets\Script\Helpers\SetPropertyAttribute.cs" />
     <Compile Include="Assets\Script\Helpers\Rotating.cs" />
     <Compile Include="Assets\Script\Helpers\Translating.cs" />
+    <Compile Include="Assets\Script\Chapter12\PostEffectsBase.cs" />
+    <Compile Include="Assets\Script\Chapter12\MotionBlur.cs" />
+    <Compile Include="Assets\Script\Chapter12\GaussianBlur.cs" />
+    <Compile Include="Assets\Script\Chapter12\Bloom.cs" />
+    <Compile Include="Assets\Script\Chapter12\BrightnessSaturationAndContrast.cs" />
+    <Compile Include="Assets\Script\Chapter12\EdgeDetection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shader\Chap_6\Chapter6-DiffusePixelLevel.shader" />
@@ -72,12 +78,14 @@
     <None Include="Assets\Shader\Chap_11\Chapter11-Water.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-AlphaBlend.shader" />
     <None Include="Assets\Shader\Chap_10\Chapter10-Fresnel.shader" />
+    <None Include="Assets\Shader\Chap_12\Chapter12-EdgeDetection.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-BlendOperations.shader" />
     <None Include="Assets\Shader\Chap_6\Chapter6-HalfLambert.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-AlphaBlendBothSided.shader" />
     <None Include="Assets\Shader\Chap_7\Chapter7-MaskTexture.shader" />
     <None Include="Assets\Shader\Chap_9\Chapter9-ForwardRendering.shader" />
     <None Include="Assets\Shader\Chap_6\Chapter6-SpecularPixelLevel.shader" />
+    <None Include="Assets\Shader\Chap_12\Chapter12-Bloom.shader" />
     <None Include="Assets\Shader\Chap_9\Chapter9-Shadow.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-AlphaTestBothSided.shader" />
     <None Include="Assets\Shader\Chap_7\Chapter7-TextureProperties.shader" />
@@ -86,10 +94,13 @@
     <None Include="Assets\Shader\Chap_11\Chapter11-ImageSequenceAnimation.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-BlendOperations 1.shader" />
     <None Include="Assets\Shader\Chap_11\Chapter11-VertexAnimationWIthShadow.shader" />
+    <None Include="Assets\Shader\Chap_12\Chapter12-GaussianBlur.shader" />
+    <None Include="Assets\Shader\Chap_12\Chapter12-BrightnessSaturationAndContrast.shader" />
     <None Include="Assets\Shader\Chap_10\Chapter10-Reflection.shader" />
     <None Include="Assets\Shader\Chap_8\Chapter8-AlphaTest.shader" />
     <None Include="Assets\Shader\Common\BumpedDiffuse.shader" />
     <None Include="Assets\Shader\Chap_6\Chapter6-SpecularVertexLevel.shader" />
+    <None Include="Assets\Shader\Chap_12\Chapter12-MotionBlur.shader" />
     <None Include="Assets\Test1\Shader\test1.shader" />
     <None Include="Assets\Shader\Chap_10\Chapter10-GlassRefraction.shader" />
     <None Include="Assets\Shader\Chap_7\Chapter7-NormalMapTangentSpace.shader" />
