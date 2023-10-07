@@ -10,6 +10,7 @@ Shader "Unity Shaders Book/Chapter 8/Alpha Test With Both Side" {
 	SubShader {
 		Tags {"Queue"="AlphaTest" "IgnoreProjector"="True" "RenderType"="TransparentCutout"}
 		
+
 		Pass {
 			Tags { "LightMode"="ForwardBase" }
 			

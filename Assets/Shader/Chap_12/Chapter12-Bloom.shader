@@ -16,8 +16,10 @@ Shader "Unity Shaders Book/Chapter 12/Bloom" {
 		
 		#include "UnityCG.cginc"
 		
+		//_MainTex_TexelSize变量，用来计算相邻像素的坐标偏移量
 		sampler2D _MainTex;
 		half4 _MainTex_TexelSize;
+		//记录较亮区域纹理
 		sampler2D _Bloom;
 		float _LuminanceThreshold;
 		float _BlurSize;
@@ -25,8 +27,9 @@ Shader "Unity Shaders Book/Chapter 12/Bloom" {
 		struct v2f {
 			float4 pos : SV_POSITION; 
 			half2 uv : TEXCOORD0;
-		};	
-		
+		};
+
+		//提取较亮区域的顶点着色器
 		v2f vertExtractBright(appdata_img v) {
 			v2f o;
 			
@@ -40,14 +43,18 @@ Shader "Unity Shaders Book/Chapter 12/Bloom" {
 		fixed luminance(fixed4 color) {
 			return  0.2125 * color.r + 0.7154 * color.g + 0.0721 * color.b; 
 		}
-		
+
+		//提取较亮区域的片元着色器
 		fixed4 fragExtractBright(v2f i) : SV_Target {
+			//对主纹理进行纹理采样获取颜色值
 			fixed4 c = tex2D(_MainTex, i.uv);
+			//将采样得到的亮度值减去阈值，并将结果截取到0~1之间
 			fixed val = clamp(luminance(c) - _LuminanceThreshold, 0.0, 1.0);
 			
 			return c * val;
 		}
 		
+		//定义混合亮部图像和原图像时使用的顶点着色器与片元着色器	
 		struct v2fBloom {
 			float4 pos : SV_POSITION; 
 			half4 uv : TEXCOORD0;
@@ -56,11 +63,15 @@ Shader "Unity Shaders Book/Chapter 12/Bloom" {
 		v2fBloom vertBloom(appdata_img v) {
 			v2fBloom o;
 			
+			//uv中定义了两个纹理坐标，
+			//xy分量对应了_MainTex，即原图像的纹理坐标
+			//zw分量对应了_Bloom，即模糊后较亮区域的纹理坐标
 			o.pos = UnityObjectToClipPos (v.vertex);
-			o.uv.xy = v.texcoord;		
+			o.uv.xy = v.texcoord;
 			o.uv.zw = v.texcoord;
 			
-			#if UNITY_UV_STARTS_AT_TOP			
+			//需要对这个纹理坐标进行平台差异化处理（5.6.1）
+			#if UNITY_UV_STARTS_AT_TOP
 			if (_MainTex_TexelSize.y < 0.0)
 				o.uv.w = 1.0 - o.uv.w;
 			#endif
@@ -68,6 +79,7 @@ Shader "Unity Shaders Book/Chapter 12/Bloom" {
 			return o; 
 		}
 		
+		//将两张纹理的采样结果相加混合
 		fixed4 fragBloom(v2fBloom i) : SV_Target {
 			return tex2D(_MainTex, i.uv.xy) + tex2D(_Bloom, i.uv.zw);
 		} 
@@ -76,6 +88,7 @@ Shader "Unity Shaders Book/Chapter 12/Bloom" {
 		
 		ZTest Always Cull Off ZWrite Off
 		
+		//定义需要的四个Pass
 		Pass {  
 			CGPROGRAM  
 			#pragma vertex vertExtractBright  

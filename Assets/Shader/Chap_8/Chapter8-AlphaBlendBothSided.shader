@@ -10,6 +10,8 @@ Shader "Unity Shaders Book/Chapter 8/Alpha Blend With Both Side" {
 	SubShader {
 		Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
 		
+		
+
 		Pass {
 			Tags { "LightMode"="ForwardBase" }
 			

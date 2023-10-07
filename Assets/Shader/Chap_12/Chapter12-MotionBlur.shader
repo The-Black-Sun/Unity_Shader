@@ -29,11 +29,11 @@ Shader "Unity Shaders Book/Chapter 12/Motion Blur" {
 		}
 	
 		//定义的两个片元着色器
-		//更新RGB通道
+		//更新RGB通道，对当前图像进行采样，并且将A通道的值设置为_BlurAmount（模糊系数），方便进行混合
 		fixed4 fragRGB (v2f i) : SV_Target {
 			return fixed4(tex2D(_MainTex, i.uv).rgb, _BlurAmount);
 		}
-		
+		//更新A通道，直接返回采样结果
 		half4 fragA (v2f i) : SV_Target {
 			return tex2D(_MainTex, i.uv);
 		}
@@ -42,6 +42,9 @@ Shader "Unity Shaders Book/Chapter 12/Motion Blur" {
 		
 		ZTest Always Cull Off ZWrite Off
 		
+		//定义运动模糊所需要的Pass
+		//第一个渲染pass用于更新RGB通道，把A通道分开是为了更新RGB是需要使用A通道来设置混合
+		//并且不希望将A通道的值写入渲染纹理中
 		Pass {
 			Blend SrcAlpha OneMinusSrcAlpha
 			ColorMask RGB
@@ -54,6 +57,7 @@ Shader "Unity Shaders Book/Chapter 12/Motion Blur" {
 			ENDCG
 		}
 		
+		//第二个渲染Pass用来更新A通道
 		Pass {   
 			Blend One Zero
 			ColorMask A
