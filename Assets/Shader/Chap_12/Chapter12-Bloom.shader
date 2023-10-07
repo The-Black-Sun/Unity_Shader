@@ -2,9 +2,13 @@
 
 Shader "Unity Shaders Book/Chapter 12/Bloom" {
 	Properties {
+		//输入的渲染纹理
 		_MainTex ("Base (RGB)", 2D) = "white" {}
+		//高斯模糊之后的较亮区域
 		_Bloom ("Bloom (RGB)", 2D) = "black" {}
+		//亮度阈值
 		_LuminanceThreshold ("Luminance Threshold", Float) = 0.5
+		//控制不同迭代之间高斯模糊的模糊区域范围
 		_BlurSize ("Blur Size", Float) = 1.0
 	}
 	SubShader {

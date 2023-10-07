@@ -56,16 +56,16 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Chapter12\EdgeDetection.cs" />
     <Compile Include="Assets\Script\Chapter10\ProceduralTextureGeneration.cs" />
-    <Compile Include="Assets\Script\Helpers\SetPropertyAttribute.cs" />
-    <Compile Include="Assets\Script\Helpers\Rotating.cs" />
-    <Compile Include="Assets\Script\Helpers\Translating.cs" />
     <Compile Include="Assets\Script\Chapter12\PostEffectsBase.cs" />
     <Compile Include="Assets\Script\Chapter12\MotionBlur.cs" />
-    <Compile Include="Assets\Script\Chapter12\GaussianBlur.cs" />
+    <Compile Include="Assets\Script\Helpers\SetPropertyAttribute.cs" />
     <Compile Include="Assets\Script\Chapter12\Bloom.cs" />
+    <Compile Include="Assets\Script\Chapter12\GaussianBlur.cs" />
+    <Compile Include="Assets\Script\Helpers\Rotating.cs" />
     <Compile Include="Assets\Script\Chapter12\BrightnessSaturationAndContrast.cs" />
-    <Compile Include="Assets\Script\Chapter12\EdgeDetection.cs" />
+    <Compile Include="Assets\Script\Helpers\Translating.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shader\Chap_6\Chapter6-DiffusePixelLevel.shader" />

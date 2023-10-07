@@ -27,7 +27,9 @@ Shader "Unity Shaders Book/Chapter 12/Motion Blur" {
 					 
 			return o;
 		}
-		
+	
+		//定义的两个片元着色器
+		//更新RGB通道
 		fixed4 fragRGB (v2f i) : SV_Target {
 			return fixed4(tex2D(_MainTex, i.uv).rgb, _BlurAmount);
 		}
