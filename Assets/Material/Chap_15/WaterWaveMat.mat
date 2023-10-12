@@ -7,12 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TeddyBear_color
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ValidKeywords:
-  - _EMISSION
+  m_Name: WaterWaveMat
+  m_Shader: {fileID: 4800000, guid: 0e6b39e857a72214d884e3f3187aab26, type: 3}
+  m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 1
+  m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -22,7 +21,23 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 8cea7b64aae4249dfa2b70dcd82d056f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BurnBump:
+        m_Texture: {fileID: 2800000, guid: 382094247e27a4be1a5c7a0012731c4c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BurnMap:
+        m_Texture: {fileID: 2800000, guid: f9e3b520081a146f99b7e88f56de6835, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CubeTex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Cubemap:
+        m_Texture: {fileID: 8900000, guid: 61df6bd9e9b4844699368830d13b4f83, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -42,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9b3afcfa29c3949378174d311e6838e2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -57,25 +72,39 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _WaveMap:
+        m_Texture: {fileID: 2800000, guid: a196c6d8ed77e483ebb42e38ab5992e7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WaveTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
+    - _Burn: 0.31
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _Distortion: 50
     - _DstBlend: 0
-    - _GlossMapScale: 1
     - _Glossiness: 0.5
-    - _GlossyReflections: 1
+    - _LineWidth: 0.078
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
+    - _RefractAmount: 1
+    - _Refraction: 0.5
+    - _SatCount: 0
     - _SrcBlend: 1
     - _UVSec: 0
+    - _WaveSpeed: 0.146
+    - _WaveXSpeed: 0.056
+    - _WaveYSpeed: 0.056
     - _ZWrite: 1
     m_Colors:
+    - _BurnColor: {r: 1, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
